@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package np.com.ravigarbuja.emojifyme.utility;
+package np.com.ravigarbuja.emojifyme;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,8 +34,6 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import np.com.ravigarbuja.emojifyme.R;
 
 class BitmapUtils {
 

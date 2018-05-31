@@ -46,16 +46,16 @@ class Emojifier {
         Bitmap resultBitmap = picture;
 
         // If there are no faces detected, show a Toast message
-        if(faces.size() == 0){
+        if (faces.size() == 0) {
             Toast.makeText(context, R.string.no_faces_message, Toast.LENGTH_SHORT).show();
         } else {
 
             //iterate through the faces
-            for (int i=0; i<faces.size(); ++i){
+            for (int i = 0; i < faces.size(); ++i) {
                 Face face = faces.valueAt(i);
 
                 Bitmap emojiBitmap;
-                switch (whichEmoji(face)){
+                switch (whichEmoji(face)) {
 
                     case SMILE:
                         emojiBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.smile);
@@ -95,12 +95,11 @@ class Emojifier {
     }
 
     /**
-     *
      * Combines the original picture with the emoji bitmaps
      *
      * @param backgroundBitmap The original picture
      * @param emojiBitmap      The chosen emoji
-     * @param face              The detected face
+     * @param face             The detected face
      * @return The final bitmap, including the emojis over the faces
      */
     private static Bitmap addBitmapToFace(Bitmap backgroundBitmap, Bitmap emojiBitmap, Face face) {
@@ -135,22 +134,22 @@ class Emojifier {
     }
 
     private static Emoji whichEmoji(Face face) {
-        Log.d(LOG_TAG, " whichEmoji: smiling probability "+  face.getIsSmilingProbability());
-        Log.d(LOG_TAG, " whichEmoji: left eye open probability "+  face.getIsLeftEyeOpenProbability());
-        Log.d(LOG_TAG, " whichEmoji: right eye open probability "+  face.getIsRightEyeOpenProbability());
+        Log.d(LOG_TAG, " whichEmoji: smiling probability " + face.getIsSmilingProbability());
+        Log.d(LOG_TAG, " whichEmoji: left eye open probability " + face.getIsLeftEyeOpenProbability());
+        Log.d(LOG_TAG, " whichEmoji: right eye open probability " + face.getIsRightEyeOpenProbability());
 
-        boolean smiling = face.getIsSmilingProbability()>SMILING_PROB_THRESHOLD;
+        boolean smiling = face.getIsSmilingProbability() > SMILING_PROB_THRESHOLD;
         boolean leftEyeClosed = face.getIsLeftEyeOpenProbability() < EYE_OPEN_PROB_THRESHOLD;
         boolean rightEyeClosed = face.getIsRightEyeOpenProbability() < EYE_OPEN_PROB_THRESHOLD;
 
         // Determine and log the appropriate emoji
         Emoji emoji;
-        if(smiling) {
+        if (smiling) {
             if (leftEyeClosed && !rightEyeClosed) {
                 emoji = Emoji.LEFT_WINK;
-            }  else if(rightEyeClosed && !leftEyeClosed){
+            } else if (rightEyeClosed && !leftEyeClosed) {
                 emoji = Emoji.RIGHT_WINK;
-            } else if (leftEyeClosed){
+            } else if (leftEyeClosed) {
                 emoji = Emoji.CLOSED_EYE_SMILE;
             } else {
                 emoji = Emoji.SMILE;
@@ -158,9 +157,9 @@ class Emojifier {
         } else {
             if (leftEyeClosed && !rightEyeClosed) {
                 emoji = Emoji.LEFT_WINK_FROWN;
-            }  else if(rightEyeClosed && !leftEyeClosed){
+            } else if (rightEyeClosed && !leftEyeClosed) {
                 emoji = Emoji.RIGHT_WINK_FROWN;
-            } else if (leftEyeClosed){
+            } else if (leftEyeClosed) {
                 emoji = Emoji.CLOSED_EYE_FROWN;
             } else {
                 emoji = Emoji.FROWN;
@@ -173,7 +172,7 @@ class Emojifier {
         return emoji;
     }
 
-    private enum  Emoji{
+    private enum Emoji {
         SMILE,
         FROWN,
         RIGHT_WINK,

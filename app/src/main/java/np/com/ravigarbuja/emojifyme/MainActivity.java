@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // If the image capture activity was called and was successful
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            // Process the image and set it to the TextView
+            // Process the image and set it to the ImageView
             processAndSetImage();
         } else {
 
@@ -163,11 +163,11 @@ public class MainActivity extends AppCompatActivity {
         // Resample the saved image to fit the ImageView
         mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
 
+        // Detect the faces and overlay the appropriate emoji
+        mResultsBitmap = Emojifier.detectFacesandOverlayImages(this, mResultsBitmap);
+
         // Set the new bitmap to the ImageView
         mImageView.setImageBitmap(mResultsBitmap);
-
-        // Detect the faces
-        Emojifier.detectFaces(this, mResultsBitmap);
     }
 
 
